@@ -1,0 +1,6 @@
+some baseline methods:
+
+Task1: pick one true response out of 11 candidates (1true+10fake), evaluation: accuracy
+
+RandomPick: ~0.09
+TFIDF+inner product: ~0.69
