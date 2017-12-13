@@ -1,0 +1,7 @@
+use of scrpits:
+
+-Preprocessing.py: link dialogues from raw data, output "dialogues.txt"
+
+-tokenizer.py: tokenize the sentences in "dialogues.txt", output "dialogues.token"
+
+-generate.py: randomly pick 70% dialogues as training and generate test set, output "train.txt", "test.txt", or "train.token"..
