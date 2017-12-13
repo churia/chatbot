@@ -1,4 +1,4 @@
-some baseline methods:
+some baseline methods: RandomPick, TFIDF, RNN, LSTM
 
 Task1: pick one true response out of 11 candidates (1true+10fake), evaluation: accuracy
 
@@ -20,7 +20,7 @@ R@(2, 11): 0.405736060971
 R@(5, 11): 0.542599277978
 No similarity between content and response: 0.0773365423185
 
-TFIDF + cosine + randomPick when no similarity between content and response:
+(unigram + bigram) + TFIDF + cosine + randomPick when no similarity between content and response:
 R@(1, 11): 0.325230645808
 R@(2, 11): 0.421419975933
 R@(5, 11): 0.583032490975
