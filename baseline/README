@@ -14,9 +14,13 @@ R@(2, 11): 0.402607300441
 R@(5, 11): 0.54207781789
 No similarity between content and response: 0.0772162053751
 
-
 -(unigram + bigram, reduce dim to 100000):
 R@(1, 11): 0.317729643
 R@(2, 11): 0.405736060971
 R@(5, 11): 0.542599277978
 No similarity between content and response: 0.0773365423185
+
+TFIDF + cosine + randomPick when no similarity between content and response:
+R@(1, 11): 0.325230645808
+R@(2, 11): 0.421419975933
+R@(5, 11): 0.583032490975
