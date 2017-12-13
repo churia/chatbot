@@ -4,4 +4,5 @@ use of scrpits:
 
 -tokenizer.py: tokenize the sentences in "dialogues.txt", output "dialogues.token"
 
--generate.py: randomly pick 70% dialogues as training and generate test set, output "train.txt", "test.txt", or "train.token"..
+-generate.py: randomly pick 70% dialogues as training and generate test set, output "training.txt", "test.txt", or "training.token", "test.token"..
+Note that "*.txt", "*.token" may be different due to randomness
