@@ -13,7 +13,7 @@ def randomPick(rangemax=10):
 	return result
 
 class TFIDFPredictor:
-	def __init__(self,ngram=1,stop=False):
+	def __init__(self,ngram=2,stop=False):
 		if stop:	
 			stopwords = corpus.stopwords.words('english')
 		else:
@@ -26,14 +26,14 @@ class TFIDFPredictor:
 	def predict(self,content,candidates):
 		content_vector = self.vectorizer.transform([content])
 		candidates_vector = self.vectorizer.transform(candidates)
-		#norm_content = normalize(content_vector,norm='l2', axis=0)
-		#norm_candidates = normalize(candidates_vector, norm='l2', axis=0)
+		content_vector = normalize(content_vector,norm='l2', axis=1)
+		candidates_vector = normalize(candidates_vector, norm='l2', axis=1)
 		result = (content_vector*(candidates_vector.T)).todense()
 		result = np.asarray(result).flatten()
 		flag = 0
 		if (np.count_nonzero(result)) == 0:	
 			flag = 1
-		#	return randomPick()
+			return flag, randomPick()
 		return flag,np.argsort(result,axis=0)[::-1]
 	
 trainfile = sys.argv[1]
@@ -81,4 +81,4 @@ with open(testfile) as f:
 		print "Random Pick: R@("+str(k)+", 11): "+str(random_correct[k]/total)
 	for k in krange:
 		print "TFIDF model: R@("+str(k)+", 11): "+str(tfidf_correct[k]/total)
-	print "No similarity between content and response using unigram:", count/total 
+	print "No similarity between content and response using:", count/total 
