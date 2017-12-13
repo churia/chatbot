@@ -2,5 +2,12 @@ some baseline methods:
 
 Task1: pick one true response out of 11 candidates (1true+10fake), evaluation: accuracy
 
-RandomPick: ~0.09
-TFIDF+inner product: ~0.69
+RandomPick: 
+R@(1, 11): 0.102166064982
+R@(2, 11): 0.200762133975
+R@(5, 11): 0.501123144805
+
+unigram+ TFIDF + inner product:
+R@(1, 11): 0.315282791817
+R@(2, 11): 0.402607300441
+R@(5, 11): 0.54207781789
