@@ -8,6 +8,6 @@ use of scrpits:
 Note that "*.txt", "*.token" may be different due to randomness
 
 -neg_train.py: randomly pick one fake response for each training content as negative training sample. (may be refined to get really "negative" samples)
-
+input: true training, output: negative training: e.g. python neg_train.py training.token trainng.neg.token
 
 
