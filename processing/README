@@ -6,3 +6,8 @@ use of scrpits:
 
 -generate.py: randomly pick 70% dialogues as training and generate test set, output "training.txt", "test.txt", or "training.token", "test.token"..
 Note that "*.txt", "*.token" may be different due to randomness
+
+-neg_train.py: randomly pick one fake response for each training content as negative training sample. (may be refined to get really "negative" samples)
+
+
+
