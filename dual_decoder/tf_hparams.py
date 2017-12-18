@@ -10,9 +10,10 @@ from collections import namedtuple
 # Model Parameters
 tf.flags.DEFINE_integer("embedding_dim", 100, "Dimensionality of the embeddings")
 tf.flags.DEFINE_integer("rnn_dim", 256, "Dimensionality of the RNN cell")
-tf.flags.DEFINE_integer("rnn_dim", 100, "Dimensionality of the RNN cell")
+#tf.flags.DEFINE_integer("rnn_dim", 100, "Dimensionality of the RNN cell")
 tf.flags.DEFINE_integer("max_content_len", 160, "Truncate contents to this length")
 tf.flags.DEFINE_integer("max_response_len", 160, "Truncate response to this length")
+#tf.flags.DEFINE_integer("max_response_len", 160, "Truncate response to this length")
 
 # Pre-trained embeddings
 #tf.flags.DEFINE_string("glove_path", None, "Path to pre-trained Glove vectors")
