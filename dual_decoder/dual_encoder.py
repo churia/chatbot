@@ -15,6 +15,8 @@ def dual_encoder_model(hparams, mode, embeddings, content, content_len, response
 
 
 	with tf.variable_scope("rnn") as vs:
+
+		'''
 		#cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim)
 		cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim,forget_bias=2.0,use_peepholes=True,state_is_tuple=True)
 		#cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2, state_is_tuple=True)
@@ -27,6 +29,23 @@ def dual_encoder_model(hparams, mode, embeddings, content, content_len, response
 			dtype=tf.float32)
 			
 		encoding_content, encoding_response = tf.split(rnn_states.h, 2, 0)
+		'''
+		cell =  tf.nn.rnn_cell.BasicRNNCell(hparams.rnn_dim)
+		content_outputs, content_states = tf.nn.dynamic_rnn(
+			cell, 
+			content_embeded,
+			sequence_length=content_len,
+			dtype=tf.float32)
+
+		response_outputs, response_states = tf.nn.dynamic_rnn(
+			cell, 
+			response_embeded,
+			sequence_length=response_len,
+			dtype=tf.float32)
+
+		encoding_content = content_states.h
+		encoding_response = response_states.h
+			
 
 	with tf.variable_scope("prediction") as vs:
 		M = tf.get_variable("M",shape=[hparams.rnn_dim,hparams.rnn_dim],initializer=tf.truncated_normal_initializer())
