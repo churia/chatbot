@@ -10,6 +10,7 @@ from collections import namedtuple
 # Model Parameters
 tf.flags.DEFINE_integer("embedding_dim", 100, "Dimensionality of the embeddings")
 tf.flags.DEFINE_integer("rnn_dim", 256, "Dimensionality of the RNN cell")
+tf.flags.DEFINE_integer("rnn_dim", 100, "Dimensionality of the RNN cell")
 tf.flags.DEFINE_integer("max_content_len", 160, "Truncate contents to this length")
 tf.flags.DEFINE_integer("max_response_len", 160, "Truncate response to this length")
 
@@ -19,6 +20,7 @@ tf.flags.DEFINE_integer("max_response_len", 160, "Truncate response to this leng
 
 # Training Parameters
 tf.flags.DEFINE_float("learning_rate", 0.001, "Learning rate")
+#tf.flags.DEFINE_integer("batch_size", 128, "Batch size during training")
 tf.flags.DEFINE_integer("batch_size", 64, "Batch size during training")
 tf.flags.DEFINE_integer("eval_batch_size", 8, "Batch size during evaluation")
 tf.flags.DEFINE_string("optimizer", "Adam", "Optimizer Name (Adam, Adagrad, etc)")
