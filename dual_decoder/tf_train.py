@@ -61,6 +61,6 @@ def main(unused_argv):
     metrics=eval_metrics)
   
   estimator.fit(input_fn=input_fn_train, steps=10000)#, monitors=[eval_monitor])
-  estimator.evaluate(input_fn=input_fn_eval, eval_metrics)
+  estimator.evaluate(input_fn=input_fn_eval, metrics=eval_metrics)
 if __name__ == "__main__":
   tf.app.run()
