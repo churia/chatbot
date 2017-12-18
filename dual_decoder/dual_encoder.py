@@ -15,8 +15,10 @@ def dual_encoder_model(hparams, mode, embeddings, content, content_len, response
 
 
 	with tf.variable_scope("rnn") as vs:
+		#cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim)
 		cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim,forget_bias=2.0,use_peepholes=True,state_is_tuple=True)
-
+		#cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2, state_is_tuple=True)
+		
 		# Run the utterance and context through the RNN
 		rnn_outputs, rnn_states = tf.nn.dynamic_rnn(
 			cell, 

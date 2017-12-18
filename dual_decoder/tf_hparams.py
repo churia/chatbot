@@ -22,6 +22,9 @@ tf.flags.DEFINE_float("learning_rate", 0.001, "Learning rate")
 tf.flags.DEFINE_integer("batch_size", 64, "Batch size during training")
 tf.flags.DEFINE_integer("eval_batch_size", 8, "Batch size during evaluation")
 tf.flags.DEFINE_string("optimizer", "Adam", "Optimizer Name (Adam, Adagrad, etc)")
+#tf.flags.DEFINE_string("optimizer", "Adagrad", "Optimizer Name (Adam, Adagrad, etc)")
+#tf.flags.DEFINE_string("optimizer", "SGD", "Optimizer Name (Adam, Adagrad, etc)")
+
 
 FLAGS = tf.flags.FLAGS
 
