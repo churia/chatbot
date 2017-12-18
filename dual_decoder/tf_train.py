@@ -8,9 +8,6 @@ import tf_input
 import tf_metrics
 from dual_encoder import dual_encoder_model
 
-reload(sys)
-sys.setdefaultencoding('Cp1252')
-
 tf.flags.DEFINE_string("input_dir", "./", "Directory containing input data files 'train.tfrecords' and 'validation.tfrecords'")
 tf.flags.DEFINE_string("model_dir", None, "Directory to store model checkpoints (defaults to ./runs)")
 tf.flags.DEFINE_integer("loglevel", 20, "Tensorflow log level")
@@ -30,30 +27,12 @@ VALIDATION_FILE = os.path.abspath(os.path.join(FLAGS.input_dir, "dev.tfrecords")
 
 tf.logging.set_verbosity(FLAGS.loglevel)
 
-def get_word_embeddings():
-	#load embeddings
-	vocab = {}
-	with open("word_embedding.vec") as f:
-		[size,dim] = [int(t) for t in f.readline().strip().split()]
-		embeddings=np.random.uniform(-0.25,0.25,(size,dim)).astype("float32")
-#		for i, l in enumerate(f.readlines()):
-#			strs = l.rstrip().split()
-#			word = strs[0]
-#			vocab[word] = i
-#			vec = np.array(strs[1:],dtype='float32')
-#			embeddings[i,:] = vec
-	
-	return embeddings
-	#return vocab, embeddings 
-	
 def main(unused_argv):
   hparams = tf_hparams.create_hparams()
 
-  word_embeddings = get_word_embeddings()
-  
   model_fn = tf_model.create_model_fn(
     hparams,
-    word_embedding=word_embeddings,
+    word_embedding=tf_input.get_word_embeddings(),
     model_impl=dual_encoder_model)
 
   estimator = tf.contrib.learn.Estimator(
