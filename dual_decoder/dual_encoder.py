@@ -15,36 +15,32 @@ def dual_encoder_model(hparams, mode, embeddings, content, content_len, response
 
 
 	with tf.variable_scope("rnn") as vs:
-
-		'''
-		#cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim)
-		cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim,forget_bias=2.0,use_peepholes=True,state_is_tuple=True)
-		#cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2, state_is_tuple=True)
-		
-		# Run the utterance and context through the RNN
-		rnn_outputs, rnn_states = tf.nn.dynamic_rnn(
-			cell, 
-			tf.concat([content_embeded, response_embeded],0),
-			sequence_length=tf.concat([content_len, response_len],0),
-			dtype=tf.float32)
+		if hparams.cell_type == "LSTM":
+			#cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim)
+			cell = tf.nn.rnn_cell.LSTMCell(hparams.rnn_dim,forget_bias=2.0,use_peepholes=True,state_is_tuple=True)
+			#cell = tf.nn.rnn_cell.MultiRNNCell([cell] * 2, state_is_tuple=True)
 			
-		encoding_content, encoding_response = tf.split(rnn_states.h, 2, 0)
-		'''
-		cell =  tf.nn.rnn_cell.BasicRNNCell(hparams.rnn_dim)
-		content_outputs, content_states = tf.nn.dynamic_rnn(
-			cell, 
-			content_embeded,
-			sequence_length=content_len,
-			dtype=tf.float32)
+			# Run the utterance and context through the RNN
+			rnn_outputs, rnn_states = tf.nn.dynamic_rnn(
+				cell, 
+				tf.concat([content_embeded, response_embeded],0),
+				sequence_length=tf.concat([content_len, response_len],0),
+				dtype=tf.float32)
+			
+			encoding_content, encoding_response = tf.split(rnn_states.h, 2, 0)
+		else:
+			cell =  tf.nn.rnn_cell.BasicRNNCell(hparams.rnn_dim)
+			content_outputs, encoding_content = tf.nn.dynamic_rnn(
+				cell, 
+				content_embeded,
+				sequence_length=content_len,
+				dtype=tf.float32)
 
-		response_outputs, response_states = tf.nn.dynamic_rnn(
-			cell, 
-			response_embeded,
-			sequence_length=response_len,
-			dtype=tf.float32)
-
-		encoding_content = content_states.h
-		encoding_response = response_states.h
+			response_outputs, encoding_response = tf.nn.dynamic_rnn(
+				cell, 
+				response_embeded,
+				sequence_length=response_len,
+				dtype=tf.float32)
 			
 
 	with tf.variable_scope("prediction") as vs:
