@@ -20,9 +20,9 @@ from torch.autograd import Variable
 from torch import optim
 import torch.nn.functional as F
 
-import sys
-reload(sys)
-sys.setdefaultencoding('Cp1252')
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('Cp1252')
 
 use_cuda = torch.cuda.is_available()
 
@@ -62,7 +62,7 @@ def readLangs(lang1, lang2, reverse=False):
 
     # Read the file and split into lines
     with open("dialogues.token",encoding='Cp1252') as f:
-    lines = f.readlines()
+        lines = f.readlines()
         pairs = []
 
         for l in lines:
@@ -167,7 +167,7 @@ class AttnDecoderRNN(nn.Module):
         embedded = self.dropout(embedded)
 
         attn_weights = F.softmax(
-            self.attn(torch.cat((embedded[0], hidden[0]), 1))), dim=1)
+            self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
                                  encoder_outputs.unsqueeze(0))
 
@@ -178,7 +178,7 @@ class AttnDecoderRNN(nn.Module):
             output = F.relu(output)
             output, hidden = self.gru(output, hidden)
 
-        output = F.log_softmax(self.out(output[0])), dim=1)
+        output = F.log_softmax(self.out(output[0]), dim=1)
         return output, hidden, attn_weights
 
     def initHidden(self):
