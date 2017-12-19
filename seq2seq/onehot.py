@@ -62,15 +62,15 @@ def readLangs(lang1, lang2, reverse=False):
 
     # Read the file and split into lines
     with open("dialogues.token",encoding='Cp1252') as f:
-	lines = f.readlines()
-    	pairs = []
+    lines = f.readlines()
+        pairs = []
 
-    	for l in lines:
-        	l = l.split('+++$+++')
-        	cur = []
-        	cur.append(l[2].strip())
-        	cur.append(l[3].strip())
-        	pairs.append(cur)
+        for l in lines:
+            l = l.split('+++$+++')
+            cur = []
+            cur.append(l[2].strip())
+            cur.append(l[3].strip())
+            pairs.append(cur)
     
     
 
