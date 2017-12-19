@@ -1,9 +1,8 @@
 
-# coding: utf-8
 
 # In[2]:
 
-get_ipython().magic(u'matplotlib inline')
+#get_ipython().magic(u'matplotlib inline')
 
 
 # In[3]:
@@ -20,6 +19,10 @@ import torch.nn as nn
 from torch.autograd import Variable
 from torch import optim
 import torch.nn.functional as F
+
+import sys
+reload(sys)
+sys.setdefaultencoding('Cp1252')
 
 use_cuda = torch.cuda.is_available()
 
@@ -58,14 +61,16 @@ def readLangs(lang1, lang2, reverse=False):
     print("dialogues.token")
 
     # Read the file and split into lines
-    lines = open('').read().strip().split('\n')
-    pairs = []
-    for l in lines:
-        l = l.split('+++$+++')
-        cur = []
-        cur.append(l[2].strip())
-        cur.append(l[3].strip())
-        pairs.append(cur)
+    with open("dialogues.token",encoding='Cp1252') as f:
+	lines = f.readlines()
+    	pairs = []
+
+    	for l in lines:
+        	l = l.split('+++$+++')
+        	cur = []
+        	cur.append(l[2].strip())
+        	cur.append(l[3].strip())
+        	pairs.append(cur)
     
     
 
@@ -162,7 +167,7 @@ class AttnDecoderRNN(nn.Module):
         embedded = self.dropout(embedded)
 
         attn_weights = F.softmax(
-            self.attn(torch.cat((embedded[0], hidden[0]), 1)), dim=1)
+            self.attn(torch.cat((embedded[0], hidden[0]), 1))), dim=1)
         attn_applied = torch.bmm(attn_weights.unsqueeze(0),
                                  encoder_outputs.unsqueeze(0))
 
@@ -173,7 +178,7 @@ class AttnDecoderRNN(nn.Module):
             output = F.relu(output)
             output, hidden = self.gru(output, hidden)
 
-        output = F.log_softmax(self.out(output[0]), dim=1)
+        output = F.log_softmax(self.out(output[0])), dim=1)
         return output, hidden, attn_weights
 
     def initHidden(self):
@@ -440,7 +445,7 @@ def showAttention(input_sentence, output_words, attentions):
     ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
     ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
 
-    plt.show()
+    plt.savefig("attn.eps",format='eps')
 
 
 def evaluateAndShowAttention(input_sentence):
